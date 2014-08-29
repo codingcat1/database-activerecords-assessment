@@ -7,7 +7,7 @@ require 'division'
 require 'competitor'
 require 'game'
 
-Active::Base.establish_connection(YAML::load(File.open('./db/config.yml'))['test'])
+ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))['test'])
 
 RSpec.configure do | config |
   config.after(:each) do

@@ -4,6 +4,7 @@
 
 #####Description:
 A program for a gaming tournament administrator (hypothetically in this case, EVO) to input Competitor Divisions, Competitor Names, and Games that Competitors want to compete in.
+![Alt text](http://i.imgur.com/a8w9Qk3.png)
 
 
 #####Requirements:

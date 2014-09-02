@@ -63,20 +63,21 @@ def add_division
 end
 
 def add_competitor
-  puts "*** ADD A COMPETITOR ***"
+  puts "*** ADD A COMPETITOR ***\n"
   puts "Please choose a Division to add a Competitor to:"
   Division.all.each do |division|
-    puts "#{division.name}\n"
+    puts "#{division.name}"
   end
+  puts "\n"
   division_input = gets.chomp
   add_to_division = Division.find_by(:name => division_input)
-  puts "Enter the name of a Competitor that you would like to add to #{division_input.upcase}:"
+  puts "Enter the name of a Competitor that you would like to add to #{division_input.upcase}:\n"
   competitor_name = gets.chomp
   new_competitor = Competitor.new(:name => competitor_name)
   new_competitor.update(:division_id => add_to_division.id)
   if new_competitor.save
-    puts "#{competitor_name.upcase} has been added to #{division_input.upcase}."
-    sleep(2)
+    puts "\n#{competitor_name.upcase} has been added to #{division_input.upcase}."
+    sleep(2.5)
   else
     puts "Not a valid Competitor name. Please try again. \n"
     new_competitor.errors.full_messages.each { |message| puts message }

@@ -86,8 +86,6 @@ def add_competitor
     puts "Not a valid Competitor name. Please try again. \n"
     new_competitor.errors.full_messages.each { |message| puts message }
     sleep (2)
-    system 'clear'
-    add_competitor
   end
 end
 
@@ -101,10 +99,11 @@ def add_game
     sleep(2.5)
   else
     puts "Not a valid Game name. Please try again. \n"
-    new_givision.errors.full_messages.each { |message| puts message }
+    new_game.errors.full_messages.each { |message| puts message }
     sleep(2)
   end
 end
+
 
 
 menu

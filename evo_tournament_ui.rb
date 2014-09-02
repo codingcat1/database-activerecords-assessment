@@ -87,5 +87,20 @@ def add_competitor
   end
 end
 
+def add_game
+  puts "*** ADD A GAME *** \n"
+  puts "Enter the name of a Game to be added to the Evo Tournament:\n"
+  game_name = gets.chomp
+  new_game = Game.new(:name => game_name)
+  if new_game.save
+    puts "\n#{game_name.upcase} has been added to the list of Games."
+    sleep(2.5)
+  else
+    puts "Not a valid Game name. Please try again. \n"
+    new_givision.errors.full_messages.each { |message| puts message }
+    sleep(2)
+  end
+end
+
 
 menu

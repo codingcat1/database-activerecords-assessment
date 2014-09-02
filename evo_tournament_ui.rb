@@ -62,5 +62,27 @@ def add_division
   end
 end
 
+def add_competitor
+  puts "*** ADD A COMPETITOR ***"
+  puts "Please choose a Division to add a Competitor to:"
+  Division.all.each do |division|
+    puts "#{division.name}\n"
+  end
+  division_input = gets.chomp
+  add_to_division = Division.find_by(:name => division_input)
+  puts "Enter the name of a Competitor that you would like to add to #{division_input.upcase}:"
+  competitor_name = gets.chomp
+  new_competitor = Competitor.new(:name => competitor_name)
+  new_competitor.update(:division_id => add_to_division.id)
+  if new_competitor.save
+    puts "#{competitor_name.upcase} has been added to #{division_input.upcase}."
+    sleep(2)
+  else
+    puts "Not a valid Competitor name. Please try again. \n"
+    new_competitor.errors.full_messages.each { |message| puts message }
+    sleep (2)
+  end
+end
+
 
 menu

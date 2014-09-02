@@ -82,6 +82,8 @@ def add_competitor
     puts "Not a valid Competitor name. Please try again. \n"
     new_competitor.errors.full_messages.each { |message| puts message }
     sleep (2)
+    system 'clear'
+    add_competitor
   end
 end
 

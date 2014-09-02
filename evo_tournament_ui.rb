@@ -47,5 +47,20 @@ def menu
   end
 end
 
+def add_division
+  puts "*** ADD A DIVISION *** \n"
+  puts "Enter the type of a Division you would like to add:"
+  division_name = gets.chomp
+  new_division = Division.new(:name => division_name)
+  if new_division.save
+    puts "#{division_name.upcase} has been added to the list of Divisions."
+    sleep(2)
+  else
+    puts "Not a valid Division name. please try again. \n"
+    new_division.errors.full_messages.each { |message| puts message }
+    sleep(2)
+  end
+end
+
 
 menu

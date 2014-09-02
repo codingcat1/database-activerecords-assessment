@@ -21,6 +21,8 @@ def menu
     puts "*** GAMES MENU ***"
     puts "Press (5) to add a Game"
     puts "Press (6) to view all Games\n\n"
+    puts "*** GAMETIME menu ***"
+    puts "Press (gg) to assign a Game to a Competitor.\n\n"
     puts "Press (x) to EXIT"
     choice = gets.chomp
     case choice
@@ -36,6 +38,8 @@ def menu
       add_game
     when '6'
       view_games
+    when 'gg'
+      assign_game
     when 'x'
       puts "OK BYE"
       sleep(1)

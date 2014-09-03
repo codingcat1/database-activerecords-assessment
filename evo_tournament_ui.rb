@@ -104,6 +104,23 @@ def add_game
   end
 end
 
+# def assign_game
+#   puts "*** GAME ON *** \n"
+#   Division.all.each do |division|
+#     puts "#{division.name}"
+#   end
+#   puts "\n\nSelect a Division to see its list of Competitors in order to assign a Game to them.\n"
+#   division_input = gets.chomp
+#   puts "\n"
+#   division = Division.where(:name => division_input).first
+#   division.competitors.each do |competitor|
+#     puts "#{competitor.name}"
+#   end
+#   puts "\n\nSelect a Competitor to add a game that they will be competing in"
+#   competitor_input = gets.chomp
+#   make_competition = Competitor.where(:name => division_input).first
+# end
+
 
 
 menu

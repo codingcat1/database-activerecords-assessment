@@ -116,11 +116,22 @@ end
 #   division.competitors.each do |competitor|
 #     puts "#{competitor.name}"
 #   end
-#   puts "\n\nSelect a Competitor to add a game that they will be competing in"
+#   puts "\n\nSelect a Competitor to add a Game that they will be competing in"
 #   competitor_input = gets.chomp
-#   make_competition = Competitor.where(:name => division_input).first
+#   puts "\n"
+#   selected_competitor = Competitor.where(:name => competitor_input).first
+#   puts "\n\nEnter the name of a Game to add to #{selected_competitor.name}\n"
+#   Game.all.each do |game|
+#     puts "#{game.name}"
+#   end
+#   puts "\n"
+#   game_input = gets.chomp
+#   selected_game = Game.find_by(:name => game_input)
+#   puts "\n"
+#   # selected_game = Game.where(:name => game_input).first
+#   competition = Competition.create({:competitor_id => selected_competitor.id, :game_id => selected_game.id})
+#   puts "\n#{competitor_input.name.upcase} is now set to compete in #{game_input.name.upcase}"
 # end
-
 
 
 menu

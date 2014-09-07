@@ -1,8 +1,8 @@
 class Competitor < ActiveRecord::Base
   belongs_to :division
 
-  has_many :competitions
-  has_many :games, :through => :competitions
+  has_many :events
+  has_many :games, :through => :events
 
   validates :name, :presence => true
 end

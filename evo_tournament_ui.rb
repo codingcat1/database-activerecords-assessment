@@ -3,6 +3,7 @@ require 'active_record'
 require './lib/competitor'
 require './lib/division'
 require './lib/game'
+require 'pry'
 
 ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))['development'])
 
@@ -55,7 +56,7 @@ def add_division
   puts "*** ADD A DIVISION *** \n"
   puts "Enter the type of a Division you would like to add:"
   division_name = gets.chomp
-  new_division = Division.new(:name => division_name)
+  new_division = Division.create(:name => division_name)
   if new_division.save
     puts "#{division_name.upcase} has been added to the list of Divisions."
     sleep(2)
@@ -77,7 +78,7 @@ def add_competitor
   add_to_division = Division.find_by(:name => division_input)
   puts "Enter the name of a Competitor that you would like to add to #{division_input.upcase}:\n"
   competitor_name = gets.chomp
-  new_competitor = Competitor.new(:name => competitor_name)
+  new_competitor = Competitor.create(:name => competitor_name)
   new_competitor.update(:division_id => add_to_division.id)
   if new_competitor.save
     puts "\n#{competitor_name.upcase} has been added to #{division_input.upcase}."
@@ -93,7 +94,7 @@ def add_game
   puts "*** ADD A GAME *** \n"
   puts "Enter the name of a Game to be added to the Evo Tournament:\n"
   game_name = gets.chomp
-  new_game = Game.new(:name => game_name)
+  new_game = Game.create(:name => game_name)
   if new_game.save
     puts "\n#{game_name.upcase} has been added to the list of Games."
     sleep(2.5)
@@ -104,34 +105,34 @@ def add_game
   end
 end
 
-# def assign_game
-#   puts "*** GAME ON *** \n"
-#   Division.all.each do |division|
-#     puts "#{division.name}"
-#   end
-#   puts "\n\nSelect a Division to see its list of Competitors in order to assign a Game to them.\n"
-#   division_input = gets.chomp
-#   puts "\n"
-#   division = Division.where(:name => division_input).first
-#   division.competitors.each do |competitor|
-#     puts "#{competitor.name}"
-#   end
-#   puts "\n\nSelect a Competitor to add a Game that they will be competing in"
-#   competitor_input = gets.chomp
-#   puts "\n"
-#   selected_competitor = Competitor.where(:name => competitor_input).first
-#   puts "\n\nEnter the name of a Game to add to #{selected_competitor.name}\n"
-#   Game.all.each do |game|
-#     puts "#{game.name}"
-#   end
-#   puts "\n"
-#   game_input = gets.chomp
-#   selected_game = Game.find_by(:name => game_input)
-#   puts "\n"
-#   # selected_game = Game.where(:name => game_input).first
-#   competition = Competition.create({:competitor_id => selected_competitor.id, :game_id => selected_game.id})
-#   puts "\n#{competitor_input.name.upcase} is now set to compete in #{game_input.name.upcase}"
-# end
+def assign_game
+  puts "*** GAME ON *** \n"
+  Division.all.each do |division|
+    puts "#{division.name}"
+  end
+  puts "\n\nSelect a Division to see its list of Competitors in order to assign a Game to them.\n"
+  division_input = gets.chomp
+  puts "\n"
+  division = Division.where(:name => division_input).first
+  division.competitors.each do |competitor|
+    puts "#{competitor.name}"
+  end
+  puts "\n\nSelect a Competitor to add a Game that they will be competing in:"
+  competitor_input = gets.chomp
+  puts "\n"
+  selected_competitor = Competitor.find_by(:name => competitor_input)
+  puts "\n\nEnter the name of a Game to add to #{selected_competitor.name}\n"
+  Game.all.each do |game|
+    puts "#{game.name}"
+  end
+  puts "\n"
+  game_input = gets.chomp
+  selected_game = Game.find_by(:name => game_input)
+  puts "\n"
+  # binding.pry
+  new_event = Event.create(:competitor_id => selected_competitor.id, :game_id => selected_game.id)
+  puts "\n#{competitor_input.name.upcase} is now set to compete in #{game_input.name.upcase}"
+end
 
 
 menu

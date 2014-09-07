@@ -126,6 +126,16 @@ def add_game
   end
 end
 
+def view_games
+  system 'clear'
+  puts "*** ALL CURRENT GAMES ***"
+  puts "Press any key to return to the main menu:\n\n"
+  Game.all.each do |game|
+    puts "#{game.name}"
+  end
+  gets.chomp
+end
+
 # def assign_game
 #   puts "*** GAME ON *** \n"
 #   Division.all.each do |division|

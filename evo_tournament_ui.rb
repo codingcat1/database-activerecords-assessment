@@ -17,11 +17,12 @@ def menu
     puts "Press (1) to add a Division"
     puts "Press (2) to view existing Divisions\n\n"
     puts "*** COMPETITORS MENU ***"
-    puts "Press (3) to add a Competitor"
-    puts "Press (4) to view all Competitors\n\n"
+    puts "Press (3) to ADD a Competitor"
+    puts "Press (4) to DISQUALIFY a Competitor"
+    puts "Press (5) to view all Competitors\n\n"
     puts "*** GAMES MENU ***"
-    puts "Press (5) to add a Game"
-    puts "Press (6) to view all Games\n\n"
+    puts "Press (6) to add a Game"
+    puts "Press (7) to view all Games\n\n"
     puts "*** GAMETIME menu ***"
     puts "Press (gg) to assign a Game to a Competitor.\n\n"
     puts "Press (x) to EXIT"
@@ -34,10 +35,12 @@ def menu
     when '3'
       add_competitor
     when '4'
-      view_competitors
+      mark_disqualified
     when '5'
-      add_game
+      view_competitors
     when '6'
+      add_game
+    when '7'
       view_games
     when 'gg'
       assign_game
@@ -89,7 +92,7 @@ def add_competitor
   add_to_division = Division.find_by(:name => division_input)
   puts "Enter the name of a Competitor that you would like to add to #{division_input.upcase}:\n"
   competitor_name = gets.chomp
-  new_competitor = Competitor.create(:name => competitor_name)
+  new_competitor = Competitor.create(:name => competitor_name, :disqualified => false)
   new_competitor.update(:division_id => add_to_division.id)
   if new_competitor.save
     puts "\n#{competitor_name.upcase} has been added to #{division_input.upcase}."
@@ -101,11 +104,26 @@ def add_competitor
   end
 end
 
+# def mark_disqualified
+#   system 'clear'
+#   puts "*** DISQUALIFY A COMPETITOR ***"
+#   puts "Type the name of a Competitor to be removed from the Tournament:\n\n"
+#   Competitor.all.each do |competitor|
+#     puts "NAME: #{competitor.name}, DIVISION: #{competitor.division_id}"
+#   end
+#   puts "\n"
+#   competitor_input = gets.chomp
+#   loser = Competitor.where(:name => competitor_input).first
+#   loser.update(:disqualified => true)
+#   puts "\n #{competitor_input.name.upcase} has now been DISQUALIFIED"
+#   sleep(2)
+# end
+
 def view_competitors
-  system 'clear'
-  puts "*** ALL CURRENT COMPETITORS ***"
+  puts "\n\n*** ALL CURRENT & QUALIFYING COMPETITORS ***"
   puts "Press any key to return to the main menu:\n\n"
-  Competitor.all.each do |competitor|
+  competitors = Competitor.where(:disqualified => false)
+  competitors.each do |competitor|
     puts "NAME: #{competitor.name}, DIVISION: #{competitor.division_id}"
   end
   gets.chomp

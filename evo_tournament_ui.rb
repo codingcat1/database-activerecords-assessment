@@ -101,6 +101,16 @@ def add_competitor
   end
 end
 
+def view_competitors
+  system 'clear'
+  puts "*** ALL CURRENT COMPETITORS ***"
+  puts "Press any key to return to the main menu:\n\n"
+  Competitor.all.each do |competitor|
+    puts "NAME: #{competitor.name}, DIVISION: #{competitor.division_id}"
+  end
+  gets.chomp
+end
+
 def add_game
   puts "*** ADD A GAME *** \n"
   puts "Enter the name of a Game to be added to the Evo Tournament:\n"

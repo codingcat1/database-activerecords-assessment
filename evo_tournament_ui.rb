@@ -71,8 +71,7 @@ def add_division
 end
 
 def view_divisions
-  system 'clear'
-  puts "*** ALL CURRENT DIVISIONS ***"
+  puts "\n\n*** ALL CURRENT DIVISIONS ***"
   puts "Press any key to return to the main menu:\n\n"
   Division.all.each do |division|
     puts "#{division.name}"
@@ -104,20 +103,21 @@ def add_competitor
   end
 end
 
-# def mark_disqualified
-#   system 'clear'
-#   puts "*** DISQUALIFY A COMPETITOR ***"
-#   puts "Type the name of a Competitor to be removed from the Tournament:\n\n"
-#   Competitor.all.each do |competitor|
-#     puts "NAME: #{competitor.name}, DIVISION: #{competitor.division_id}"
-#   end
-#   puts "\n"
-#   competitor_input = gets.chomp
-#   loser = Competitor.where(:name => competitor_input).first
-#   loser.update(:disqualified => true)
-#   puts "\n #{competitor_input.name.upcase} has now been DISQUALIFIED"
-#   sleep(2)
-# end
+def mark_disqualified
+  system 'clear'
+  puts "*** DISQUALIFY A COMPETITOR ***"
+  puts "Type the name of a Competitor to be removed from the Tournament:\n\n"
+  competitors = Competitor.where(:disqualified => false)
+  competitors.each do |competitor|
+    puts "NAME: #{competitor.name}, DIVISION: #{competitor.division_id}"
+  end
+  puts "\n"
+  competitor_input = gets.chomp
+  loser = Competitor.where(:name => competitor_input).first
+  loser.update(:disqualified => true)
+  puts "\n #{competitor_input.upcase} has now been DISQUALIFIED"
+  sleep(2)
+end
 
 def view_competitors
   puts "\n\n*** ALL CURRENT & QUALIFYING COMPETITORS ***"
@@ -145,8 +145,7 @@ def add_game
 end
 
 def view_games
-  system 'clear'
-  puts "*** ALL CURRENT GAMES ***"
+  puts "\n\n*** ALL CURRENT GAMES ***"
   puts "Press any key to return to the main menu:\n\n"
   Game.all.each do |game|
     puts "#{game.name}"

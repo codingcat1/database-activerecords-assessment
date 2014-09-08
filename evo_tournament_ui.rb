@@ -153,34 +153,34 @@ def view_games
   gets.chomp
 end
 
-# def assign_game
-#   puts "*** GAME ON *** \n"
-#   Division.all.each do |division|
-#     puts "#{division.name}"
-#   end
-#   puts "\n\nSelect a Division to see its list of Competitors in order to assign a Game to them.\n"
-#   division_input = gets.chomp
-#   puts "\n"
-#   division = Division.where(:name => division_input).first
-#   division.competitors.each do |competitor|
-#     puts "#{competitor.name}"
-#   end
-#   puts "\n\nSelect a Competitor to add a Game that they will be competing in:"
-#   competitor_input = gets.chomp
-#   puts "\n"
-#   selected_competitor = Competitor.find_by(:name => competitor_input)
-#   puts "\n\nEnter the name of a Game to add to #{selected_competitor.name}\n"
-#   Game.all.each do |game|
-#     puts "#{game.name}"
-#   end
-#   puts "\n"
-#   game_input = gets.chomp
-#   selected_game = Game.find_by(:name => game_input)
-#   puts "\n"
-#   # binding.pry
-#   new_event = Event.create(:competitor_id => selected_competitor.id, :game_id => selected_game.id)
-#   puts "\n#{competitor_input.name.upcase} is now set to compete in #{game_input.name.upcase}"
-# end
+def assign_game
+  puts "*** GAME ON *** \n"
+  Division.all.each do |division|
+    puts "#{division.name}"
+  end
+  puts "\n\nSelect a Division to see its list of Competitors in order to assign a Game to them.\n"
+  division_input = gets.chomp
+  puts "\n"
+  division = Division.where(:name => division_input).first
+  division.competitors.each do |competitor|
+    puts "#{competitor.name}"
+  end
+  puts "\n\nSelect a Competitor to add a Game that they will be competing in:"
+  competitor_input = gets.chomp
+  puts "\n"
+  selected_competitor = Competitor.find_by(:name => competitor_input)
+  puts "\n\nEnter the name of a Game to add to #{selected_competitor.name}\n"
+  Game.all.each do |game|
+    puts "#{game.name}"
+  end
+  puts "\n"
+  game_input = gets.chomp
+  selected_game = Game.find_by(:name => game_input)
+  puts "\n"
+  # binding.pry
+  new_event = Event.create(:competitor_id => selected_competitor.id, :game_id => selected_game.id)
+  puts "\n#{competitor_input.name.upcase} is now set to compete in #{game_input.name.upcase}"
+end
 
 
 menu

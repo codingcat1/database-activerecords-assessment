@@ -14,6 +14,10 @@ Ruby, terminal, PostgreSQL, gems: activerecord, rake, active_record_migrations, 
 Download zip file.  Open terminal, and change directory to location of the file.  In terminal, type "$ ruby evo_tournament_ui.rb." Have fun!
 
 #####Known Bugs/Functionalities not yet created:
+- Admin cannot yet delete divisions or games.
+- Admin cannot yet update items.
+- There is a bug when trying to assign a game to a competitor.  The method will work as far as allowing the admin to select a division, then selecting the competitor from the chosen division, however an error message will pop up when selecting the game to assign to the competitor. Still have yet to work out.
+
 
 
 ####License:

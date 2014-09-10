@@ -6,7 +6,7 @@ require 'shoulda-matchers'
 require 'division'
 require 'competitor'
 require 'game'
-require 'competition'
+require 'event'
 
 ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))['test'])
 
@@ -15,6 +15,6 @@ RSpec.configure do | config |
     Division.all.each { |division| division.destroy }
     Competitor.all.each { |competitor| competitor.destroy}
     Game.all.each { |game| game.destroy }
-    Competition.all.each { |competition| competition.destroy}
+    Event.all.each { |event| event.destroy}
   end
 end

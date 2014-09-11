@@ -3,6 +3,8 @@ require 'active_record'
 require './lib/competitor'
 require './lib/division'
 require './lib/game'
+require './lib/event'
+require 'date'
 require 'pry'
 
 ActiveRecord::Base.establish_connection(YAML::load(File.open('./db/config.yml'))['development'])
@@ -22,7 +24,8 @@ def menu
     puts "Press (5) to view all Competitors\n\n"
     puts "*** GAMES MENU ***"
     puts "Press (6) to add a Game"
-    puts "Press (7) to view all Games\n\n"
+    puts "Press (7) to view all Games"
+    puts "Press (8) to view all Games from today\n\n"
     puts "*** GAMETIME menu ***"
     puts "Press (gg) to assign a Game to a Competitor.\n\n"
     puts "Press (x) to EXIT"
@@ -42,6 +45,8 @@ def menu
       add_game
     when '7'
       view_games
+    when '8'
+      today_games
     when 'gg'
       assign_game
     when 'x'
@@ -153,6 +158,14 @@ def view_games
   gets.chomp
 end
 
+def today_games
+  puts "\n\n*** TODAY'S GAMES ***"
+  puts "Press any key to return to main menu:\n\n"
+  Game.time.each { |game| puts "#{game.name}"}
+  binding.pry
+  gets.chomp
+end
+
 def assign_game
   puts "*** GAME ON *** \n"
   Division.all.each do |division|
@@ -177,9 +190,10 @@ def assign_game
   game_input = gets.chomp
   selected_game = Game.find_by(:name => game_input)
   puts "\n"
-  # binding.pry
   new_event = Event.create(:competitor_id => selected_competitor.id, :game_id => selected_game.id)
-  puts "\n#{competitor_input.name.upcase} is now set to compete in #{game_input.name.upcase}"
+  new_event
+  puts "\n#{competitor_input.upcase} is now set to compete in #{game_input.upcase}!!!"
+  sleep(2.5)
 end
 
 

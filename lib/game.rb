@@ -4,5 +4,5 @@ class Game < ActiveRecord::Base
 
   validates :name, :presence => true
 
-  scope :time, -> {where(created_at: Time.now..)}
+  # scope :before_at, -> { where('created_at > ? ': )}
 end

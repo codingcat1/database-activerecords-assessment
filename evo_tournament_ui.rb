@@ -27,7 +27,7 @@ def menu
     puts "Press (7) to view all Games"
     puts "Press (8) to view all Games from today\n\n"
     puts "*** GAMETIME menu ***"
-    puts "Press (gg) to assign a Game to a Competitor.\n\n"
+    puts "Press (gg) to create an event.\n\n"
     puts "Press (x) to EXIT"
     choice = gets.chomp
     case choice
@@ -48,7 +48,7 @@ def menu
     when '8'
       today_games
     when 'gg'
-      assign_game
+      create_event
     when 'x'
       puts "OK BYE"
       sleep(1)
@@ -125,7 +125,7 @@ def mark_disqualified
 end
 
 def view_competitors
-  puts "\n\n*** ALL CURRENT & QUALIFYING COMPETITORS ***"
+  puts "\n\n*** ALL CURRENT & QUALIFYING COMPETITORS AND THEIR EVENTS ***"
   puts "Press any key to return to the main menu:\n\n"
   competitors = Competitor.where(:disqualified => false)
   competitors.each do |competitor|
@@ -158,15 +158,15 @@ def view_games
   gets.chomp
 end
 
-def today_games
-  puts "\n\n*** TODAY'S GAMES ***"
-  puts "Press any key to return to main menu:\n\n"
-  Game.time.each { |game| puts "#{game.name}"}
-  binding.pry
-  gets.chomp
-end
+# def today_games
+#   puts "\n\n*** TODAY'S GAMES ***"
+#   puts "Press any key to return to main menu:\n\n"
+#   Game.time.each { |game| puts "#{game.name}"}
+#   binding.pry
+#   gets.chomp
+# end
 
-def assign_game
+def create_event
   puts "*** GAME ON *** \n"
   Division.all.each do |division|
     puts "#{division.name}"

@@ -6,6 +6,6 @@ class Competitor < ActiveRecord::Base
 
   validates :name, :presence => true
 
-  scope :division_id, -> { where(division_id: '3')}
+  scope :practice_id, -> { where(division_id: '4')}
 
 end

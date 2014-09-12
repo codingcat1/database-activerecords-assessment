@@ -21,11 +21,11 @@ def menu
     puts "*** COMPETITORS MENU ***"
     puts "Press (3) to ADD a Competitor"
     puts "Press (4) to DISQUALIFY a Competitor"
+    puts "Press (p) to view all Practice Competitors"
     puts "Press (5) to view all Competitors\n\n"
     puts "*** GAMES MENU ***"
     puts "Press (6) to add a Game"
     puts "Press (7) to view all Games"
-    puts "Press (8) to view all Games from today\n\n"
     puts "*** GAMETIME menu ***"
     puts "Press (gg) to create an Event."
     puts "Press (e) to view all Events.\n\n"
@@ -40,14 +40,14 @@ def menu
       add_competitor
     when '4'
       mark_disqualified
+    when 'p'
+      practicing_competitors
     when '5'
       view_competitors
     when '6'
       add_game
     when '7'
       view_games
-    when '8'
-      today_games
     when 'gg'
       create_event
     when 'e'
@@ -127,6 +127,19 @@ def mark_disqualified
   sleep(2)
 end
 
+def practicing_competitors
+  system 'clear'
+  puts "*** PRACTICE COMPETITORS ***"
+  puts "-----------------------------------"
+  puts "NOTICE: Players listed below may not move on in the tournament:\n\n"
+  Competitor.practice_id.all.each do |practice_id|
+    puts "#{practice_id.name}"
+  end
+  puts "\nPress any key to return to the main menu."
+  gets.chomp
+end
+
+
 def view_competitors
   puts "\n\n*** ALL CURRENT & QUALIFYING COMPETITORS ***"
   puts "Press any key to return to the main menu:\n\n"
@@ -138,7 +151,7 @@ def view_competitors
 end
 
 def add_game
-  puts "*** ADD A GAME *** \n"
+  puts "\n\n*** ADD A GAME *** \n"
   puts "Enter the name of a Game to be added to the Evo Tournament:\n"
   game_name = gets.chomp
   new_game = Game.create(:name => game_name)
@@ -161,16 +174,8 @@ def view_games
   gets.chomp
 end
 
-# def today_games
-#   puts "\n\n*** TODAY'S GAMES ***"
-#   puts "Press any key to return to main menu:\n\n"
-#   Game.time.each { |game| puts "#{game.name}"}
-#   binding.pry
-#   gets.chomp
-# end
-
 def create_event
-  puts "*** GAME ON *** \n"
+  puts "\n\n*** GAME ON *** \n"
   Division.all.each do |division|
     puts "#{division.name}"
   end
@@ -201,7 +206,7 @@ end
 
 def view_events
   system 'clear'
-  puts "*** ALL EVENTS ***\n"
+  puts "\n\n*** ALL EVENTS ***\n"
   puts "Press any key to return to the main menu:\n\n"
   Event.all.each do |event|
     puts "#{event.competitor.name.upcase} is set to play #{event.game.name.upcase}"

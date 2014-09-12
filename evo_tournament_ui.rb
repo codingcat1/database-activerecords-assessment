@@ -27,7 +27,8 @@ def menu
     puts "Press (7) to view all Games"
     puts "Press (8) to view all Games from today\n\n"
     puts "*** GAMETIME menu ***"
-    puts "Press (gg) to create an event.\n\n"
+    puts "Press (gg) to create an Event."
+    puts "Press (e) to view all Events.\n\n"
     puts "Press (x) to EXIT"
     choice = gets.chomp
     case choice
@@ -49,6 +50,8 @@ def menu
       today_games
     when 'gg'
       create_event
+    when 'e'
+      view_events
     when 'x'
       puts "OK BYE"
       sleep(1)
@@ -125,7 +128,7 @@ def mark_disqualified
 end
 
 def view_competitors
-  puts "\n\n*** ALL CURRENT & QUALIFYING COMPETITORS AND THEIR EVENTS ***"
+  puts "\n\n*** ALL CURRENT & QUALIFYING COMPETITORS ***"
   puts "Press any key to return to the main menu:\n\n"
   competitors = Competitor.where(:disqualified => false)
   competitors.each do |competitor|
@@ -194,6 +197,16 @@ def create_event
   new_event
   puts "\n#{competitor_input.upcase} is now set to compete in #{game_input.upcase}!!!"
   sleep(2.5)
+end
+
+def view_events
+  system 'clear'
+  puts "*** ALL EVENTS ***\n"
+  puts "Press any key to return to the main menu:\n\n"
+  Event.all.each do |event|
+    puts "#{event.competitor.name.upcase} is set to play #{event.game.name.upcase}"
+  end
+  gets.chomp
 end
 
 

@@ -10,4 +10,9 @@ describe Competitor do
     competitor = Competitor.new ({:name => ''})
     expect(competitor.save).to eq false
   end
+
+  it 'converts the name to titlecase' do
+    competitor = Competitor.create(:name => "johnny")
+    expect(competitor.name).to eq "Johnny"
+  end
 end
